@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.min.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css"/>
+   <title>
+      This is a boring title
+   </title>
+</head>
+<body class="row">
+<center>
+   <h1>
+      Ini soalnyaaa...
+   </h1>
+   <h2>
+      Kode soal {{ kode }}
+   </h2>
+   <h3>
+      Question : {{problem}}
+   </h3>
+   <h3>
+      Answer : {{ answer }}
+   </h3>
+
+   <form action="/soal/{{kode}}" method="get">
+      <input class="button" type="submit"/>
+   </form>
+</center>
+</body>
+</html>

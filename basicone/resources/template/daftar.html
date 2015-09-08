@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.min.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css"/>
+   <title>
+      This is a boring title
+   </title>
+</head>
+<body class="row">
+<center>
+   <h1>
+      Daftar soal
+   </h1>
+   <ul>
+      {% for soal in soals %}
+      <li>
+         <h3>Soal kode {{soal}}</h3>
+         <form action="/soal/{{soal}}" method="get">
+            <input class="button" type="submit"/>
+         </form>
+      </li>
+      {% endfor %}
+   </ul>
+</center>
+
+</body>
+</html>

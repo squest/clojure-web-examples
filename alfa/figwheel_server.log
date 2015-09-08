@@ -1,0 +1,11 @@
+Figwheel: focusing on build-ids (dev)
+[0mCompiling "resources/public/js/compiled/app.js" from ["src/cljs"]...
+[32mSuccessfully compiled "resources/public/js/compiled/app.js" in 0.281 seconds.[0m
+notifying browser that file changed:  resources/public/js/compiled/out/goog/deps.js
+notifying browser that file changed:  resources/public/js/compiled/out/cljs_deps.js
+notifying browser that file changed:  /alfa/handlers.js
+notifying browser that file changed:  /alfa/core.js
+notifying browser that file changed:  /alfa/db.js
+notifying browser that file changed:  /alfa/routes.js
+notifying browser that file changed:  /alfa/subs.js
+notifying browser that file changed:  /alfa/views.js
