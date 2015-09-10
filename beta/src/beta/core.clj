@@ -7,7 +7,10 @@
 
 (def app
   (-> all-routes
-      (defaults/wrap-defaults defaults/site-defaults)))
+      (defaults/wrap-defaults
+        (update-in defaults/site-defaults
+                   [:security :anti-forgery]
+                   #(not %)))))
 
 (defonce server (atom nil))
 

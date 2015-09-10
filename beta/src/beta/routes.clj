@@ -2,7 +2,8 @@
   (:require
     [compojure.core :refer [defroutes routes GET POST]]
     [compojure.route :as route]
-    [beta.pages :as page]))
+    [beta.pages :as page]
+    [noir.response :as resp]))
 
 ;; http://zenius.net/cg/129/blablabla
 
@@ -21,5 +22,29 @@
   (routes
     (GET "/" [request]
       (page/home))
-    (GET "/logo" [request]
-      "LOGGGOOOoooooo")))
+    (GET "/daftar" []
+      (page/form))
+    (GET "/daftar-article" []
+      (page/articles))
+    (GET "/article-content/:id" [id]
+      (let [id-beneran (read-string id)]
+        (page/get-article id-beneran)))
+    (POST "/add-article" request
+      (do (page/add-article! (:params request))
+          (resp/redirect "/")))
+    (route/resources "public/")
+    (route/not-found "Not found error 404")))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
