@@ -1,6 +1,7 @@
 (ns basicone.pages
   (:require
-    [selmer.parser :refer [render-file]]))
+    [selmer.parser :refer [render-file]]
+    [clojure.string :as cs]))
 
 (defn home-page
   [bisa-request-bisa-nama]

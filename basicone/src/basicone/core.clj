@@ -15,18 +15,11 @@
 
 (def config {:port 3000})
 
-(defn start
-  []
-  (reset! server (http/run-server app config)))
+(defn start [] (reset! server (http/run-server app config)))
 
-(defn stop
-  []
-  (@server))
+(defn stop [] (@server))
 
-(defn restart
-  []
-  (stop)
-  (start))
+(defn restart [] (stop) (start))
 
 
 
