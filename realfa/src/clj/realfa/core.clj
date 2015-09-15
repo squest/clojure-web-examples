@@ -13,7 +13,9 @@
   ([port]
    (->> (-> all-routes
             (cookies/wrap-noir-cookies*)
-            (wrap-defaults site-defaults)
+            (wrap-defaults (update-in site-defaults
+                                      [:security :anti-forgery]
+                                      #(not %)))
             (http/run-server {:port port}))
         (reset! server))))
 
