@@ -1,13 +1,13 @@
 (defproject realfa "0.1.0-SNAPSHOT"
   :dependencies
   [[org.clojure/clojure "1.7.0"]
-   [org.clojure/clojurescript "0.0-3211"]
+   [org.clojure/clojurescript "1.7.122"]
    [lib-noir "0.9.9"]
-   [http-kit "2.1.18"]
+   [http-kit "2.1.19"]
    [com.ashafa/clutch "0.4.0"]
    [selmer "0.9.1"]
    [cljs-ajax "0.3.14"]
-   [reagent "0.5.0"]
+   [reagent "0.5.1"]
    [re-frame "0.4.1"]
    [secretary "1.2.3"]
    [ring/ring-defaults "0.1.5"]
@@ -17,8 +17,8 @@
   ["src/clj"]
 
   :plugins
-  [[lein-cljsbuild "1.0.6"]
-   [lein-figwheel "0.3.3" :exclusions [cider/cider-nrepl]]]
+  [[lein-cljsbuild "1.1.0"]
+   [lein-figwheel "0.3.9" :exclusions [cider/cider-nrepl]]]
 
   :clean-targets
   ^{:protect false} ["resources/public/js/compiled" "target"]

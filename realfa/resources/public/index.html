@@ -2,16 +2,32 @@
 <html lang="en">
   <head>
     <meta charset='utf-8'>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap.min.css"/>
   </head>
-  <body>
-  <center>
-    <h1>
-      Welcome to the site
-    </h1>
-  </center>
+  <body class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <section style="text-align: inherit">
+        <span style="font-size: 25px" class="bottom">
+            Welcome to the site
+        </span>
+        <ul class="pull-right list-inline bottom-right">
+          <li>
+            <a href="/">home</a>
+          </li>
+          <li>
+            <a href="/login">login</a>
+          </li>
+
+        </ul>
+      </section>
+
+      <hr/>
+    </div>
+  </div>
     <div id="app"></div>
-    <script src="js/compiled/app.js"></script>
+    <script src="/js/compiled/app.js"></script>
     <script>realfa.core.init();</script>
   </body>
 </html>

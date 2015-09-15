@@ -10,11 +10,12 @@
 
 (defn start
   ([] (start 3000))
-  ([port] (reset! server
-                  (-> all-routes
-                      (cookies/wrap-noir-cookies*)
-                      (wrap-defaults site-defaults)
-                      (http/run-server {:port port})))))
+  ([port]
+   (->> (-> all-routes
+            (cookies/wrap-noir-cookies*)
+            (wrap-defaults site-defaults)
+            (http/run-server {:port port}))
+        (reset! server))))
 
 (defn stop
   []
