@@ -11,7 +11,7 @@
 (defn start
   ([] (start 3000))
   ([port]
-   (->> (-> all-routes
+   (->> (-> (all-routes)
             (cookies/wrap-noir-cookies*)
             (wrap-defaults (update-in site-defaults
                                       [:security :anti-forgery]
@@ -27,4 +27,5 @@
 (defn reset
   []
   (stop)
+  (Thread/sleep 200)
   (start))

@@ -1,0 +1,27 @@
+{% extends "public/index.html" %}
+
+{% block content %}
+<h3>
+   {{message}}
+</h3>
+<form action="/bobo/123?jojon=koko" method="post" class="col-md-8 col-md-off-set2">
+   <fieldset style="!important;">
+      <legend>Soal no {{problem-id}}</legend>
+      <p>
+         {{problem}}
+      </p>
+      <p>
+         {% for answer in answers %}
+         <input type="radio" name="answer" value="{{answer.option}}"/>
+         &nbsp;&nbsp;{{answer.string}}
+         <br/>
+
+         {% endfor %}
+      </p>
+      <input type="hidden" name="tokenfn" value="{{tokenfn}}"/>
+      <input type="submit" class="btn btn-primary"/>
+   </fieldset>
+</form>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<hr/>
+{% endblock %}
