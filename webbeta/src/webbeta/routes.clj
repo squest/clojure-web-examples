@@ -12,7 +12,9 @@
     (GET "/article" req
       (page/articles))
     (GET "/article/:id" [id]
-      (page/article id))
+      (page/articles id))
+    (GET "/add-article" req
+      (page/add-article))
     (POST "/" req "Wowowo")
     (resources "public/")
     (not-found "Not found")))

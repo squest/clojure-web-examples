@@ -1,7 +1,9 @@
 (ns webbeta.pages
   (:require
     [hiccup.core :as hc]
-    [hiccup.page :as hp]))
+    [hiccup.page :as hp]
+    [hiccup.form :as form]))
+
 
 (defn- head
   []
@@ -51,11 +53,71 @@
                  (body)
                  (footer)]))
   ([nama] (hp/html5 (head)
+                    [:body {:class "row"}
+                     (header)
+                     [:h2 (str "Hello " nama)]
+                     (body)
+                     (footer)])))
+
+(defn articles
+  ([] (hp/html5 (head)
                 [:body {:class "row"}
                  (header)
-                 [:h2 (str "Hello " nama)]
-                 (body)
-                 (footer)])))
+                 [:div
+                  [:ul
+                   (for [art (-> "resources/data/article.edn"
+                                 slurp read-string)]
+                     [:li [:a {:href (str "/article/" (:article-id art))}
+                           (:title art)]])]]
+                 (footer)]))
+  ([id]
+   (let [data (->> "resources/data/article.edn"
+                   slurp read-string
+                   (filter #(= (:article-id %) id))
+                   first)]
+     (hp/html5
+       (head)
+       [:body.row
+        (header)
+        [:h4
+         [:a {:href (str "/article")}
+          "Back to the list of articles"]]
+        [:div {:class "large-6 columns"}
+         [:h3 (str "Judul : " (:title data))]
+         [:p (:text data)]]
+        (footer)]))))
+
+(defn add-article
+  []
+  (hp/html5
+    (head)
+    [:body.row
+     (header)
+     [:div.large-6
+      [:form {:class "row" :action "/add-article" :method "post"}
+       [:fieldset
+        [:legend "Add an article"]
+        [:label
+         "Judul"
+         [:input {:type "text" :name "judul" :placeholder "Judul"}]]
+        [:br]
+        [:input {:type "text" :name "id" :placeholder "article-id"}]
+        [:br]
+        [:input {:type "textarea" :name "text"}]
+        [:br]
+        [:input {:class "button" :type "submit" :text "Submit"}]]]]
+     (footer)]))
+
+
+
+
+
+
+
+
+
+
+
 
 
 

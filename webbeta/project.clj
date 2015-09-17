@@ -7,4 +7,5 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [lib-noir "0.9.9"]
                  [http-kit "2.1.19"]
-                 [ring/ring-defaults "0.1.5"]])
+                 [ring/ring-defaults "0.1.5"]
+                 [hiccup "1.0.5"]])
