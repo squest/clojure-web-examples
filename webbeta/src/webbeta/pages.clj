@@ -8,7 +8,9 @@
   (hc/html [:head
             [:meta {:charset "utf-8"}]
             (hp/include-css "/css/normalize.css")
-            (hp/include-css "/css/foundation.min.css")]))
+            (hp/include-css "/css/foundation.min.css")
+            (hp/include-js "/js/vendor/jquery.js")
+            (hp/include-js "/js/foundation.min.js")]))
 
 (defn- header
   []
@@ -51,9 +53,11 @@
   ([nama] (hp/html5 (head)
                 [:body {:class "row"}
                  (header)
+                 [:h2 (str "Hello " nama)]
                  (body)
-                 [:h2 (str "Hello Wala")]
                  (footer)])))
+
+
 
 
 

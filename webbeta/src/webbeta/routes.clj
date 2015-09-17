@@ -9,8 +9,10 @@
   (routes
     (GET "/" req
       (page/home))
-    (GET "/wala" req
-      (page/home "Wala"))
+    (GET "/article" req
+      (page/articles))
+    (GET "/article/:id" [id]
+      (page/article id))
     (POST "/" req "Wowowo")
     (resources "public/")
     (not-found "Not found")))
