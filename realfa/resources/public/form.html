@@ -4,8 +4,8 @@
 <h3>
    {{message}}
 </h3>
-<form action="/bobo/123?jojon=koko" method="post" class="col-md-8 col-md-off-set2">
-   <fieldset style="!important;">
+<form action="/soal" method="post" class="col-md-8 col-md-off-set2">
+   <fieldset>
       <legend>Soal no {{problem-id}}</legend>
       <p>
          {{problem}}
@@ -13,7 +13,7 @@
       <p>
          {% for answer in answers %}
          <input type="radio" name="answer" value="{{answer.option}}"/>
-         &nbsp;&nbsp;{{answer.string}}
+         &nbsp;&nbsp;&nbsp;{{answer.string}}
          <br/>
 
          {% endfor %}
@@ -25,3 +25,4 @@
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <hr/>
 {% endblock %}
+

@@ -12,11 +12,10 @@
   (render-file "public/index.html" {}))
 
 (defn soal-page
-  ([] (render-file "public/form.html"
-                (soal/show-soal)))
-  ([message] (render-file "public/form.html"
-                          (merge (soal/show-soal)
-                                 {:message message}))))
+  ([] (render-file "public/form.html" (soal/show-soal)))
+  ([message] (->> {:message message}
+                  (merge (soal/show-soal))
+                  (render-file "public/form.html"))))
 
 (defn all-routes
   []
