@@ -2,7 +2,8 @@
   (:require
     [org.httpkit.server :as http]
     [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-    [noir.cookies :as cookies]))
+    [noir.cookies :as cookies]
+    [webbeta.routes :refer [all-routes]]))
 
 (defonce server (atom nil))
 
