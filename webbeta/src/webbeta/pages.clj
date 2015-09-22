@@ -1,119 +1,111 @@
 (ns webbeta.pages
   (:require
     [hiccup.core :as hc]
-    [hiccup.page :as hp]
-    [hiccup.form :as form]))
-
+    [hiccup.page :refer [html5 include-css include-js]]
+    [hiccup.form :as form]
+    [webbeta.articles :as article]))
 
 (defn- head
-  []
-  (hc/html [:head
-            [:meta {:charset "utf-8"}]
-            (hp/include-css "/css/normalize.css")
-            (hp/include-css "/css/foundation.min.css")
-            (hp/include-js "/js/vendor/jquery.js")
-            (hp/include-js "/js/foundation.min.js")]))
+  [title]
+  [:head
+   [:meta {:charset "utf-8"}]
+   (include-css "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+   (include-css "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css")
+   [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
+   [:title title]])
 
 (defn- header
   []
-  (hc/html [:header {:class "large-12 large-centered columns"}
-            [:h2 "Some logo"]
-            [:hr]]))
+  [:header
+   [:div.row
+    [:div.col-lg-5
+     [:h2 "Some bloc's blog"]
+     [:h5 [:i "Lost in the universe"]]]
+    [:div.col-lg-7.clearfix
+     [:div.pull-right
+      [:a {:href "/"} "Homepage"]
+      [:span " | "]
+      [:a {:href "/add-article"} "Add a new article"]]]]
+   [:hr]])
+
+(defn- content
+  [& content]
+  [:body.container
+   [:div.row
+    content]])
+
+(defn- content-homepage
+  []
+  (let [data (article/all-articles)]
+    [:div.col-xl-12
+     [:div.col-xl-5
+      [:h3 "Available articles for sale"]
+      [:ul
+       (for [d data]
+         [:li
+          [:a {:href (str "/article/" (:id d))}
+           (:title d)]])]]]))
 
 (defn- footer
   []
-  (hc/html [:footer
-            [:hr]
-            [:p "Copyright 2015 Jojon dkk"]]))
+  [:footer
+   [:hr]
+   [:p "Copyright 2015 Jojon dkk"]])
 
-(defn- flat-thing
-  [title some-fake-image]
-  (hc/html
-    [:div.large-4.column
+(defn home []
+  (html5
+    (head "This is the homepage")
+    (content (header)
+             (content-homepage)
+             (footer))))
+
+(defn add-article []
+  (html5
+    (head "Add a new article")
+    (content (header)
+             [:div.row
+              [:div.col-md-offset-2.col-md-5
+               [:form {:action "/add-article" :method "post"}
+                [:fieldset
+                 [:legend "Add an article"]
+                 [:input {:type "text"
+                          :name "title"
+                          :placeholder "Title"
+                          :size "50"}]
+                 [:br] [:br]
+                 [:textarea {:name "text"
+                             :class "form-control"
+                             :rows "6"}]
+                 [:br]
+                 [:input {:type  "submit"
+                          :class "btn btn-primary pull-right"}]]]]]
+             (footer))))
+
+(defn- article-sidebar
+  []
+  [:div.col-md-3
+   [:ul [:h4 "Available articles"]
+    (for [d (article/all-articles)]
+      [:li
+       [:a {:href (str "/article/" (:id d))}
+        (:title d)]])]])
+
+(defn- single-article
+  [data]
+  (let [{:keys [title text]} data]
+    [:div.col-md-8
      [:h4 title]
-     [:p some-fake-image]]))
+     [:p text]]))
 
-(defn- body
-  []
-  (hc/html [:div {:class "large-12"}
-            [:h1 "Some article"]
-            [:div {:class "large-12 columns"}
-             (map flat-thing
-                  ["First title" "Second title" "Third title"]
-                  ["fake one" "fake two" "fake three"])
-             (for [i (map vector
-                          ["First title" "Second title" "Third title"]
-                          ["fake one" "fake two" "fake three"])]
-               (apply flat-thing i))]]))
-
-(defn home
-  ([] (hp/html5 (head)
-                [:body {:class "row"}
-                 (header)
-                 (body)
-                 (footer)]))
-  ([nama] (hp/html5 (head)
-                    [:body {:class "row"}
-                     (header)
-                     [:h2 (str "Hello " nama)]
-                     (body)
-                     (footer)])))
-
-(defn articles
-  ([] (hp/html5 (head)
-                [:body {:class "row"}
-                 (header)
-                 [:div
-                  [:ul
-                   (for [art (-> "resources/data/article.edn"
-                                 slurp read-string)]
-                     [:li [:a {:href (str "/article/" (:article-id art))}
-                           (:title art)]])]]
-                 (footer)]))
-  ([id]
-   (let [data (->> "resources/data/article.edn"
-                   slurp read-string
-                   (filter #(= (:article-id %) id))
-                   first)]
-     (hp/html5
-       (head)
-       [:body.row
-        (header)
-        [:h4
-         [:a {:href (str "/article")}
-          "Back to the list of articles"]]
-        [:div {:class "large-6 columns"}
-         [:h3 (str "Judul : " (:title data))]
-         [:p (:text data)]]
-        (footer)]))))
-
-(defn add-article
-  []
-  (hp/html5
-    (head)
-    [:body.row
-     (header)
-     [:div.large-6
-      [:form {:class "row" :action "/add-article" :method "post"}
-       [:fieldset
-        [:legend "Add an article"]
-        [:label
-         "Judul"
-         [:input {:type "text" :name "judul" :placeholder "Judul"}]]
-        [:br]
-        [:input {:type "text" :name "id" :placeholder "article-id"}]
-        [:br]
-        [:input {:type "textarea" :name "text"}]
-        [:br]
-        [:input {:class "button" :type "submit" :text "Submit"}]]]]
-     (footer)]))
-
-
-
-
-
-
-
+(defn article [id]
+  (let [data (article/article id)]
+    (html5
+      (head (:title data))
+      (content (header)
+               [:div.row
+                (article-sidebar)
+                (single-article data)]
+               (footer)))))
 
 
 
