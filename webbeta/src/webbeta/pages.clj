@@ -5,6 +5,8 @@
     [hiccup.form :as form]
     [webbeta.articles :as article]))
 
+;; form/s-expresssion sexp
+
 (defn- head
   [title]
   [:head
@@ -13,6 +15,8 @@
    (include-css "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css")
    [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
    [:title title]])
+
+;; slurp & barf
 
 (defn- header
   []
@@ -68,27 +72,18 @@
                [:form {:action "/add-article" :method "post"}
                 [:fieldset
                  [:legend "Add an article"]
-                 [:input {:type "text"
-                          :name "title"
+                 [:input {:type        "text"
+                          :name        "title"
                           :placeholder "Title"
-                          :size "50"}]
+                          :size        "50"}]
                  [:br] [:br]
-                 [:textarea {:name "text"
+                 [:textarea {:name  "text"
                              :class "form-control"
-                             :rows "6"}]
+                             :rows  "6"}]
                  [:br]
                  [:input {:type  "submit"
                           :class "btn btn-primary pull-right"}]]]]]
              (footer))))
-
-(defn- article-sidebar
-  []
-  [:div.col-md-3
-   [:ul [:h4 "Available articles"]
-    (for [d (article/all-articles)]
-      [:li
-       [:a {:href (str "/article/" (:id d))}
-        (:title d)]])]])
 
 (defn- single-article
   [data]
@@ -96,6 +91,16 @@
     [:div.col-md-8
      [:h4 title]
      [:p text]]))
+
+(defn- article-sidebar
+  []
+  [:div.col-md-3
+   [:ul
+    [:h4 "Available articles"]
+    (for [d (article/all-articles)]
+      [:li
+       [:a {:href (str "/article/" (:id d))}
+        (:title d)]])]])
 
 (defn article [id]
   (let [data (article/article id)]

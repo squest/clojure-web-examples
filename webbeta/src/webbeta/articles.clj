@@ -1,5 +1,6 @@
 (ns webbeta.articles)
 
+
 (def articles (atom (->> "resources/data/article.edn" slurp read-string)))
 
 (defn all-articles

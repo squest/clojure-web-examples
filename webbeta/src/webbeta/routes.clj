@@ -6,8 +6,7 @@
     [webbeta.articles :as article]
     [noir.response :as response]))
 
-(defn all-routes
-  []
+(defn all-routes []
   (routes
     (GET "/" req
       (page/home))
